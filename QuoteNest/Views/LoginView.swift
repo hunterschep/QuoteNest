@@ -21,6 +21,7 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
+
                 Spacer()
                 
                 // App title
@@ -29,6 +30,7 @@ struct LoginView: View {
                     .fontWeight(.bold)
                     .foregroundColor(Color("lightRed"))
                     .shadow(color: Color("lightRed"), radius: 10)
+                
                 
                 // Login | Create account picker
                 Picker("Mode", selection: $isLoginMode) {
@@ -43,19 +45,34 @@ struct LoginView: View {
 
                 // Email & Password field
                 VStack(spacing: 15) {
-                    TextField("Email", text: $email)
-                        .padding()
-                        .background(Color.gray.opacity(0.2))
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                        .autocapitalization(.none)
-                        .keyboardType(.emailAddress)
+                    ZStack(alignment: .leading) {
+                        if email.isEmpty {
+                            Text("  Email")
+                                .foregroundColor(Color.white.opacity(0.5)) // Light white color
+                                .padding(.leading, 8)
+                        }
+                        TextField("Email", text: $email)
+                            .padding()
+                            .background(Color.gray.opacity(0.25))
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                            .autocapitalization(.none)
+                            .keyboardType(.emailAddress)
+                    }
                     
-                    SecureField("Password", text: $password)
-                        .padding()
-                        .background(Color.gray.opacity(0.2))
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+                    ZStack(alignment: .leading) {
+                        if password.isEmpty {
+                            Text("  Password")
+                                .foregroundColor(Color.white.opacity(0.5)) // Light white color
+                                .padding(.leading, 8)
+                        }
+                        SecureField("", text: $password)
+                            .padding()
+                            .background(Color.gray.opacity(0.25))
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+
                 }
                 .padding(.horizontal)
                 
@@ -72,6 +89,27 @@ struct LoginView: View {
                 .padding(.horizontal)
                 
                 Spacer()
+                
+                
+                VStack(alignment: .leading) {
+                    // App quote with additional horizontal padding
+                    Text("\"Famous remarks are very seldom quoted correctly.\"")
+                        .italic()
+                        .padding(.horizontal, 16) // Increased horizontal padding
+                    
+                    // Author aligned to the right and italicized
+                    HStack {
+                        Spacer()
+                        Text("-- Simeon Strunsky")
+                            .italic()
+                    }
+                }
+                .foregroundStyle(.gray)
+                .padding(.bottom)
+                .padding(.horizontal)
+
+
+                
             }
             .padding()
             // Alert in case things don't work
