@@ -1,17 +1,27 @@
+//
+//  LoginView.swift
+//  QuoteNest
+//
+//  Created by Hunter Scheppat on 11/19/24.
+//
+
 import SwiftUI
 import FirebaseAuth
 
 struct LoginView: View {
+    // VM to handle login & account creation
     @StateObject private var viewModel = AuthViewModel()
+    // Fields
     @State private var email = ""
     @State private var password = ""
     @State private var isLoginMode = true
     @State private var showAlert = false
     @State private var alertMessage = ""
-    @State private var navigateToHome = false // State variable to control navigation
+    @State private var navigateToHome = false
 
     var body: some View {
         NavigationView {
+            // Text & logins
             VStack(spacing: 20) {
                 Spacer()
 
@@ -31,7 +41,7 @@ struct LoginView: View {
                 .foregroundColor(.white)
                 .padding(.horizontal)
 
-                // Email & Password field
+                // Email & password fields
                 VStack(spacing: 15) {
                     ZStack(alignment: .leading) {
                         if email.isEmpty {
@@ -63,6 +73,7 @@ struct LoginView: View {
                 }
                 .padding(.horizontal)
 
+                // Button to login or create
                 Button(action: performAction) {
                     Text(isLoginMode ? "Login" : "Create Account")
                         .frame(maxWidth: .infinity)
@@ -88,12 +99,13 @@ struct LoginView: View {
                 .padding()
                 .foregroundStyle(.gray)
 
-                // NavigationLink for programmatic navigation
+                // NavigationLink to go to HomeView upon login
                 NavigationLink(destination: HomeView(), isActive: $navigateToHome) {
                     EmptyView()
                 }
             }
             .padding()
+            // Alert if something fails
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Message"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
             }
@@ -101,6 +113,7 @@ struct LoginView: View {
         }
     }
 
+    // Attempt to login or signup
     private func performAction() {
         if isLoginMode {
             viewModel.signIn(email: email, password: password) { success in
@@ -113,6 +126,7 @@ struct LoginView: View {
         }
     }
 
+    // Handle the result of attempting to login or signup 
     private func handleCompletion(success: Bool, message: String) {
         if success {
             navigateToHome = true // Trigger navigation to HomeView

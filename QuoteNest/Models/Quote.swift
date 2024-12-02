@@ -7,16 +7,17 @@
 
 import Foundation
 
-struct Quote: Identifiable, Codable {
-    let id: String // Use a UUID or Firebase's document ID for saved quotes
-    let text: String
+struct Quote: Identifiable, Codable, Equatable { // Added Equatable
+    let id: Int // Updated to match the API's `id` as an Int
+    let text: String // Match the API's `quote` field
     let author: String
     let tags: [String]?
 
-    init(id: String = UUID().uuidString, text: String, author: String, tags: [String]? = nil) {
-        self.id = id
-        self.text = text
-        self.author = author
-        self.tags = tags
+    // Custom CodingKeys to map JSON keys to struct properties
+    enum CodingKeys: String, CodingKey {
+        case id
+        case text = "quote" // Map "quote" from JSON to "text"
+        case author
+        case tags
     }
 }
