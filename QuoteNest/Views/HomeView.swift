@@ -88,6 +88,7 @@ struct HomeView: View {
                             Text("Max Length")
                                 .font(.title2)
                                 .foregroundColor(.white)
+                                .padding(.bottom, 20)
 
                             HStack {
                                 Slider(value: $maxLength, in: 50...300, step: 1)
@@ -215,7 +216,7 @@ struct HomeView: View {
                         },
                     isActive: $showSavedQuotesView
                 ) {
-                    Text("My Quote Library")
+                    Text("Your Quote Library")
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity)
                         .padding()

@@ -40,17 +40,31 @@ struct QuoteDetailView: View {
 
             // Notes Section
             VStack(alignment: .leading, spacing: 10) {
-                Text("Notes")
-                    .font(.headline)
+                Text("Personal Notes")
+                    .font(.title2)
+                    .fontWeight(.bold)
                     .foregroundColor(.white)
-
-                TextEditor(text: $viewModel.notes)
-                    .frame(height: 150)
-                    .padding()
-                    .background(Color("lightRed").opacity(0.2))
-                    .cornerRadius(8)
-                    .foregroundColor(.white)
-                    .scrollContentBackground(.hidden)
+                
+                ZStack {
+                    if viewModel.notes.isEmpty {
+                        Text("No notes yet!")
+                            .font(.title3)
+                            .foregroundColor(.gray)
+                    }
+                    
+                    TextEditor(text: $viewModel.notes)
+                        .frame(height: 150)
+                        .padding()
+                        .background(Color.gray.opacity(0.2))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color("lightRed"), lineWidth: 4)
+                        )
+                        .cornerRadius(12)
+                        .foregroundColor(.white)
+                        .scrollContentBackground(.hidden)
+                }
+                
             }
             .padding(.horizontal)
 
@@ -104,8 +118,6 @@ struct QuoteDetailView: View {
         }
         .background(Color.black.ignoresSafeArea()) // Apply black background to entire screen
         .sheet(isPresented: $isShareSheetPresented) {
-            // TODO: quote is inaccessible due to private protection level
-
             ActivityView(activityItems: ["\"\(viewModel.quote.text)\" - \(viewModel.quote.author)"])
         }
         //Instance method 'alert(item:content:)' requires that 'String' conform to 'Identifiable'
