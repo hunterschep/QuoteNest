@@ -185,6 +185,12 @@ struct HomeView: View {
 
                         Button(action: {
                             viewModel.saveQuote(quote)
+                            
+                            selectedTags.removeAll()
+                            author = ""
+                            maxLength = 100
+                            viewModel.randomQuote = nil
+                            
                         }) {
                             Text("Save Quote")
                                 .fontWeight(.bold)
@@ -237,6 +243,7 @@ struct HomeView: View {
                 )
             }
         }
+        .tint(Color("lightRed"))
         .navigationViewStyle(StackNavigationViewStyle()) // Ensures proper rendering in all layouts
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)

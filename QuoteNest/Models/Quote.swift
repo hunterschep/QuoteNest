@@ -19,6 +19,9 @@ struct Quote: Identifiable, Codable, Equatable {
     let author: String
     let tags: [String]?
 
+    // User-added field for notes
+    var notes: String?
+
     // Custom CodingKeys to map JSON keys to struct properties
     enum CodingKeys: String, CodingKey {
         case id
@@ -27,3 +30,4 @@ struct Quote: Identifiable, Codable, Equatable {
         case tags
     }
 }
+
