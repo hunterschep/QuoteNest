@@ -1,9 +1,13 @@
-//
-//  QuoteDetailView.swift
-//  QuoteNest
-//
-//  Created by Hunter Scheppat on 12/1/24.
-//
+/*
+ 
+     @file: QuoteDetailView.swift
+     @project: QuoteNest | Fall 2024 Swift Final Project
+     @author: Hunter Scheppat
+     @date: December 2nd, 2024
+     
+     @description: view model for looking at one quote and its assosciated notes 
+ 
+ */
 
 import SwiftUI
 

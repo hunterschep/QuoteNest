@@ -1,9 +1,16 @@
-//
-//  SavedQuotesViewModel.swift
-//  QuoteNest
-//
-//  Created by Hunter Scheppat on 12/1/24.
-//
+/*
+ 
+     @file: SavedQuotesViewModel.swift
+     @project: QuoteNest | Fall 2024 Swift Final Project
+     @author: Hunter Scheppat
+     @date: December 2nd, 2024
+     
+     @description: view model that handles fetching a user's currently saved quotes
+        * Fetches a user's saved quotes 
+        * TODO: deleting a quote (integrate into QuoteService)
+        * TODO: handle notes
+ 
+ */
 
 import Foundation
 import FirebaseFirestore
@@ -15,6 +22,7 @@ class SavedQuotesViewModel: ObservableObject {
     
     private let quoteService = FirebaseQuoteService.shared
     
+    // Fetch the saved quotes from the quoteService
     func fetchSavedQuotes() {
         quoteService.fetchSavedQuotes { [weak self] quotes, error in
             DispatchQueue.main.async {
@@ -27,6 +35,8 @@ class SavedQuotesViewModel: ObservableObject {
         }
     }
     
+    // Delete a quote using the quoteservice
+    // TODO: add this to quoteService
     func deleteQuote(_ quote: Quote) {
         guard let user = Auth.auth().currentUser else { return }
         let userDocRef = Firestore.firestore().collection("users").document(user.uid)

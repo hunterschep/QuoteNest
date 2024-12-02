@@ -1,15 +1,21 @@
-//
-//  Quote.swift
-//  QuoteNest
-//
-//  Created by Hunter Scheppat on 11/19/24.
-//
+/*
+    
+    @file: Quote.swift
+    @project: QuoteNest | Fall 2024 Swift Final Project
+    @author: Hunter Scheppat
+    @date: December 2nd, 2024
+ 
+    @description: class file for a singular 'Quote' retrieved from the API
+ 
+ */
 
 import Foundation
 
-struct Quote: Identifiable, Codable, Equatable { // Added Equatable
-    let id: Int // Updated to match the API's `id` as an Int
-    let text: String // Match the API's `quote` field
+// Quote struct
+struct Quote: Identifiable, Codable, Equatable {
+    // Quote fields gathered from API
+    let id: Int
+    let text: String
     let author: String
     let tags: [String]?
 

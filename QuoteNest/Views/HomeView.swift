@@ -1,3 +1,15 @@
+/*
+ 
+     @file: HomeView.swift
+     @project: QuoteNest | Fall 2024 Swift Final Project
+     @author: Hunter Scheppat
+     @date: December 2nd, 2024
+     
+     @description: main view shown after login
+        * shows quote fetching properties
+        * render's the fetched quote 
+ 
+ */
 import SwiftUI
 
 struct HomeView: View {

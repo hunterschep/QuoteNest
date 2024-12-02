@@ -1,3 +1,14 @@
+/*
+ 
+     @file: SavedQuotesView.swift
+     @project: QuoteNest | Fall 2024 Swift Final Project
+     @author: Hunter Scheppat
+     @date: December 2nd, 2024
+     
+     @description: view model for looking at all of a user's saved quotes
+ 
+ */
+
 import SwiftUI
 
 struct SavedQuotesView: View {
@@ -39,7 +50,7 @@ struct SavedQuotesView: View {
         }
         .navigationTitle("My Quote Library")
         .navigationBarTitleDisplayMode(.inline)
-        .background(Color.black.ignoresSafeArea()) // Apply black background to entire screen
+        .background(Color.black.ignoresSafeArea()) 
     }
 }
 

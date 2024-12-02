@@ -1,9 +1,13 @@
-//
-//  LoginView.swift
-//  QuoteNest
-//
-//  Created by Hunter Scheppat on 11/19/24.
-//
+/*
+ 
+     @file: LoginView.swift
+     @project: QuoteNest | Fall 2024 Swift Final Project
+     @author: Hunter Scheppat
+     @date: December 2nd, 2024
+     
+     @description: view that allows login / account creation and utilizes auth service
+ 
+ */
 
 import SwiftUI
 import FirebaseAuth
