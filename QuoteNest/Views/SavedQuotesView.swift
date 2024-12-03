@@ -83,18 +83,21 @@ struct SavedQuotesView: View {
             }
         }
         .onAppear {
-            viewModel.fetchSavedQuotes()
-
+            if ProcessInfo.processInfo.environment["XCODE_RUNNING_PREVIEWS"] == "1" {
+                // Running in Xcode canvas previews, use mock data
+                viewModel.savedQuotes = Quote.mockSavedQuotes
+                print("Using mock saved quotes for preview.")
+            } else {
+                // Not in previews, fetch real saved quotes
+                viewModel.fetchSavedQuotes()
+            }
+            
             // Dismiss loading screen after 1.5 seconds
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                 showLoadingScreen = false
             }
         }
     }
-}
-
-#Preview {
-    SavedQuotesView()
 }
 
 #Preview {

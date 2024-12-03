@@ -91,14 +91,8 @@ struct LoginView: View {
 
                 Spacer()
 
-                VStack(alignment: .leading) {
-                    Text("\"Famous remarks are very seldom quoted correctly.\"")
-                        .italic()
-                    HStack {
-                        Spacer()
-                        Text("-- Simeon Strunsky")
-                            .italic()
-                    }
+                VStack(alignment: .center) {
+                    Text("Made by Hunter Scheppat")
                 }
                 .padding()
                 .foregroundStyle(.gray)

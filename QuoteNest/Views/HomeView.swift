@@ -234,8 +234,16 @@ struct HomeView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity) // Ensure VStack fills the screen
             .background(Color.black.ignoresSafeArea()) // Apply black background to entire screen
             .onAppear {
-                viewModel.fetchSavedQuotes()
+                if ProcessInfo.processInfo.environment["XCODE_RUNNING_PREVIEWS"] == "1" {
+                    // Running in Xcode canvas previews, use mock data
+                    viewModel.savedQuotes = Quote.mockSavedQuotes
+                    print("Using mock saved quotes for preview.")
+                } else {
+                    // Not in previews, fetch real saved quotes
+                    viewModel.fetchSavedQuotes()
+                }
             }
+
             .alert(item: $viewModel.errorMessage) { errorMessage in
                 Alert(
                     title: Text("Error"),
