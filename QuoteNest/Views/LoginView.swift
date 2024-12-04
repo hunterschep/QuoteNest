@@ -9,8 +9,10 @@
  
  */
 
+
 import SwiftUI
 import FirebaseAuth
+
 
 struct LoginView: View {
     // VM to handle login & account creation
@@ -21,19 +23,22 @@ struct LoginView: View {
     @State private var isLoginMode = true
     @State private var showAlert = false
     @State private var alertMessage = ""
-    @State private var navigateToHome = false
+    @State private var navigationPath = NavigationPath()
+
 
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $navigationPath) {
             // Text & logins
             VStack(spacing: 20) {
                 Spacer()
+
 
                 Text("QuoteNest")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(Color("lightRed"))
                     .shadow(color: Color("lightRed"), radius: 10)
+
 
                 Picker("Mode", selection: $isLoginMode) {
                     Text("Login").tag(true)
@@ -45,12 +50,13 @@ struct LoginView: View {
                 .foregroundColor(.white)
                 .padding(.horizontal)
 
+
                 // Email & password fields
                 VStack(spacing: 15) {
                     ZStack(alignment: .leading) {
                         if email.isEmpty {
                             Text("  Email")
-                                .foregroundColor(Color.white.opacity(0.5)) // Light white color
+                                .foregroundColor(Color.white.opacity(0.5))
                                 .padding(.leading, 8)
                         }
                         TextField("Email", text: $email)
@@ -62,10 +68,11 @@ struct LoginView: View {
                             .keyboardType(.emailAddress)
                     }
 
+
                     ZStack(alignment: .leading) {
                         if password.isEmpty {
                             Text("  Password")
-                                .foregroundColor(Color.white.opacity(0.5)) // Light white color
+                                .foregroundColor(Color.white.opacity(0.5))
                                 .padding(.leading, 8)
                         }
                         SecureField("", text: $password)
@@ -76,6 +83,7 @@ struct LoginView: View {
                     }
                 }
                 .padding(.horizontal)
+
 
                 // Button to login or create
                 Button(action: performAction) {
@@ -88,19 +96,18 @@ struct LoginView: View {
                 }
                 .padding(.horizontal)
                 .shadow(color: Color("lightRed"), radius: 10)
+                .fontWeight(.bold)
+
+
 
                 Spacer()
+
 
                 VStack(alignment: .center) {
                     Text("Made by Hunter Scheppat")
                 }
                 .padding()
                 .foregroundStyle(.gray)
-
-                // NavigationLink to go to HomeView upon login
-                NavigationLink(destination: HomeView(), isActive: $navigateToHome) {
-                    EmptyView()
-                }
             }
             .padding()
             // Alert if something fails
@@ -108,8 +115,12 @@ struct LoginView: View {
                 Alert(title: Text("Message"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
             }
             .background(Color.black.ignoresSafeArea())
+            .navigationDestination(for: String.self) { _ in
+                HomeView()
+            }
         }
     }
+
 
     // Attempt to login or signup
     private func performAction() {
@@ -124,16 +135,18 @@ struct LoginView: View {
         }
     }
 
-    // Handle the result of attempting to login or signup 
+
+    // Handle the result of attempting to login or signup
     private func handleCompletion(success: Bool, message: String) {
         if success {
-            navigateToHome = true // Trigger navigation to HomeView
+            navigationPath.append("home")
         } else {
             alertMessage = message
             showAlert = true
         }
     }
 }
+
 
 #Preview {
     LoginView()

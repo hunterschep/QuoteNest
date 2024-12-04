@@ -18,7 +18,7 @@ struct SavedQuotesView: View {
     var body: some View {
         ZStack {
             if showLoadingScreen {
-                // Loading Screen
+                // Loading Screen while we fetch quotes
                 Color.black
                     .ignoresSafeArea()
                     .overlay(
@@ -42,6 +42,7 @@ struct SavedQuotesView: View {
                         .padding(.bottom, 10)
 
                     List {
+                        // Show each saved user quote 
                         ForEach(viewModel.savedQuotes) { quote in
                             NavigationLink(destination: QuoteDetailView(quote: quote)) {
                                 HStack {

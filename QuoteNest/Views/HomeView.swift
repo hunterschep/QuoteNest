@@ -208,15 +208,11 @@ struct HomeView: View {
                 .cornerRadius(12)
                 .padding(.horizontal)
                                 
-                // My Quote Library Button
-                // My Quote Library Button
-                NavigationLink(
-                    destination: SavedQuotesView()
-                        .onDisappear {
-                        },
-                    isActive: $showSavedQuotesView
-                ) {
-                    Text("Your Quote Library")
+                // My Quote Library Button (new)
+                NavigationLink {
+                    SavedQuotesView()
+                } label: {
+                    Label("Your Quote Nest", systemImage: "book")
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity)
                         .padding()
