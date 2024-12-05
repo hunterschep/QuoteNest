@@ -42,7 +42,7 @@ struct SavedQuotesView: View {
                         .padding(.bottom, 10)
 
                     List {
-                        // Show each saved user quote 
+                        // Show each saved user quote
                         ForEach(viewModel.savedQuotes) { quote in
                             NavigationLink(destination: QuoteDetailView(quote: quote)) {
                                 HStack {
@@ -50,7 +50,7 @@ struct SavedQuotesView: View {
                                         Text("\(quote.author):")
                                             .font(.headline)
                                             .fontWeight(.bold)
-                                            .foregroundColor(Color.lightRed)
+                                            .foregroundColor(Color("lightRed"))
                                         Text("\"\(quote.text.prefix(20))...\"")
                                             .font(.body)
                                             .italic()
@@ -93,11 +93,12 @@ struct SavedQuotesView: View {
                 viewModel.fetchSavedQuotes()
             }
             
-            // Dismiss loading screen after 1.5 seconds
+            // Dismiss loading screen after 0.75 seconds
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                 showLoadingScreen = false
             }
         }
+        .tint(Color("lightRed")) // Explicitly set back button tint
     }
 }
 

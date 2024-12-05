@@ -53,13 +53,14 @@ struct LoginView: View {
 
                 // Email & password fields
                 VStack(spacing: 15) {
+                    // Email TextField
                     ZStack(alignment: .leading) {
                         if email.isEmpty {
-                            Text("  Email")
+                            Text("Email")
                                 .foregroundColor(Color.white.opacity(0.5))
-                                .padding(.leading, 8)
+                                .padding(.leading, 16) // Add consistent padding to align text
                         }
-                        TextField("Email", text: $email)
+                        TextField("", text: $email)
                             .padding()
                             .background(Color.gray.opacity(0.25))
                             .foregroundColor(.white)
@@ -67,13 +68,13 @@ struct LoginView: View {
                             .autocapitalization(.none)
                             .keyboardType(.emailAddress)
                     }
-
-
+                    
+                    // Password SecureField
                     ZStack(alignment: .leading) {
                         if password.isEmpty {
-                            Text("  Password")
+                            Text("Password")
                                 .foregroundColor(Color.white.opacity(0.5))
-                                .padding(.leading, 8)
+                                .padding(.leading, 16) // Add consistent padding to align text
                         }
                         SecureField("", text: $password)
                             .padding()

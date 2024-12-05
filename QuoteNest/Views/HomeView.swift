@@ -104,9 +104,9 @@ struct HomeView: View {
                     // Author Name Input
                     ZStack(alignment: .leading) {
                         if author.isEmpty {
-                            Text("  Author Name")
+                            Text("Author Name")
                                 .foregroundColor(.white) // Light white color
-                                .padding(.leading, 8)
+                                .padding(.leading, 16)
                         }
                         TextField("Author Name", text: $author)
                             .padding()
@@ -176,33 +176,52 @@ struct HomeView: View {
                             .stroke(Color("lightRed"), lineWidth: 4)
                     )
                     .cornerRadius(12)
-                    
+
                     Spacer()
 
-                    if let quote = viewModel.randomQuote {
-                        Text("- \(quote.author)")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
+                    // Reserve space for "Save Quote" button
+                    Group {
+                        if let quote = viewModel.randomQuote {
+                            VStack {
+                                Text("- \(quote.author)")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
 
-                        Button(action: {
-                            viewModel.saveQuote(quote)
-                            
-                            selectedTags.removeAll()
-                            author = ""
-                            maxLength = 100
-                            viewModel.randomQuote = nil
-                            
-                        }) {
-                            Text("Save Quote")
-                                .fontWeight(.bold)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color("lightRed"))
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                                .padding(.horizontal)
+                                Button(action: {
+                                    viewModel.saveQuote(quote)
+                                    selectedTags.removeAll()
+                                    author = ""
+                                    maxLength = 100
+                                    viewModel.randomQuote = nil
+                                }) {
+                                    Text("Save Quote")
+                                        .fontWeight(.bold)
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .background(Color("lightRed"))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(10)
+                                        .padding(.horizontal)
+                                }
+                            }
+                        } else {
+                            // Invisible placeholder to keep space reserved
+                            VStack {
+                                Text("-")
+                                    .font(.subheadline)
+                                    .foregroundColor(.clear)
+
+                                Button(action: {})
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color.clear)
+                                    .cornerRadius(10)
+                                    .padding(.horizontal)
+                                    .hidden() // Ensures the button is invisible and non-interactive
+                            }
                         }
                     }
+                    .animation(.default, value: viewModel.randomQuote) // Smooth transition when the button appears/disappears
                 }
                 .background(Color.black.opacity(0.8))
                 .cornerRadius(12)

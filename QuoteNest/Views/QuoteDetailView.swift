@@ -16,6 +16,7 @@ struct QuoteDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var isShareSheetPresented = false
     @State private var showLoadingScreen = true // Controls the initial loading view
+    @FocusState private var isTextEditorFocused: Bool // Tracks focus of the TextEditor
 
     init(quote: Quote) {
         _viewModel = StateObject(wrappedValue: QuoteDetailViewModel(quote: quote))
@@ -75,6 +76,7 @@ struct QuoteDetailView: View {
                                 .cornerRadius(12)
                                 .foregroundColor(.white)
                                 .scrollContentBackground(.hidden)
+                                .focused($isTextEditorFocused) // Attach the focus state
                         }
                     }
                     .padding(.horizontal)
@@ -124,7 +126,14 @@ struct QuoteDetailView: View {
                 .padding()
                 .navigationTitle("Quote Details")
                 .navigationBarTitleDisplayMode(.inline)
-                .background(Color.black.ignoresSafeArea()) // Apply black background to entire screen
+                .background(
+                    Color.black
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            // Dismiss the keyboard when tapping outside
+                            isTextEditorFocused = false
+                        }
+                )
                 .sheet(isPresented: $isShareSheetPresented) {
                     ActivityView(activityItems: ["\"\(viewModel.quote.text)\" - \(viewModel.quote.author)"])
                 }
@@ -145,9 +154,9 @@ struct QuoteDetailView: View {
                 showLoadingScreen = false
             }
         }
+        .tint(Color("lightRed")) // Explicitly set back button tint
     }
 }
-
 // ActivityView to present the iOS Share Sheet
 struct ActivityView: UIViewControllerRepresentable {
     let activityItems: [Any]
