@@ -38,7 +38,7 @@ struct QuoteDetailView: View {
                 VStack(spacing: 20) {
                     // Quote Text
                     Text("\"\(viewModel.quote.text)\"")
-                        .font(.title)
+                        .font(.subheadline)
                         .italic()
                         .multilineTextAlignment(.center)
                         .padding()
@@ -46,7 +46,7 @@ struct QuoteDetailView: View {
 
                     // Author
                     Text("- \(viewModel.quote.author)")
-                        .font(.title3)
+                        .font(.headline)
                         .bold()
                         .foregroundColor(.gray)
                         .padding(.bottom)
